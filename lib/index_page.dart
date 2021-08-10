@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'base/BasePage.dart';
 import 'guide_page.dart';
 import 'home_page.dart';
-import 'util/RouterUtils.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class IndexPageState extends BasePage<IndexPage> {
   bool showWelcome = true;
 
   int totalSecond = 5;
-  TimerUtil timerUtil = TimerUtil(mInterval: 200, mTotalTime: 5000);
+  TimerUtil? timerUtil;
   num tick = 0;
 
   @override
@@ -28,7 +27,8 @@ class IndexPageState extends BasePage<IndexPage> {
     super.initState();
     readCacheData();
 
-    timerUtil.setOnTimerTickCallback((millisUntilFinished) {
+    timerUtil = TimerUtil(mInterval: 200, mTotalTime: 5000);
+    timerUtil!.setOnTimerTickCallback((millisUntilFinished) {
       setState(() {
         tick = millisUntilFinished / 1000;
         if (tick == 0) {
@@ -42,7 +42,6 @@ class IndexPageState extends BasePage<IndexPage> {
   }
 
   void readCacheData() async {
-    print("从本地缓存中取值中。。。");
     final preferences = await SharedPreferences.getInstance();
     bool isFirst = preferences.getBool("isFirst");
     print("从本地缓存中取值 $isFirst");
@@ -50,7 +49,7 @@ class IndexPageState extends BasePage<IndexPage> {
       preferences.setBool("isFirst", true);
       pushPage(GuidePage());
     }else{
-      timerUtil.startCountDown();
+      timerUtil!.startCountDown();
     }
 
     showWelcome = true;
@@ -114,7 +113,7 @@ class IndexPageState extends BasePage<IndexPage> {
         top: 30,
         child: InkWell(
           onTap: (){
-            timerUtil.cancel();
+            timerUtil!.cancel();
             pushPage(HomePage());
           },
             child: SizedBox(
