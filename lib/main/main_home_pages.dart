@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'item/home_item_page.dart';
+
 class MainHomePage extends StatefulWidget   {
   @override
   State<StatefulWidget> createState() {
@@ -13,10 +15,16 @@ class MainHomePageState extends State<MainHomePage> with SingleTickerProviderSta
 
   TabController? tabController;
 
+  List<Widget> bodyPageList = [];
+
   @override
   void initState() {
     super.initState();
     tabController = new TabController(length: 8, vsync: this);
+
+    for(int i =0; i < topTabList.length;i++){
+      bodyPageList.add(new HomeItemPage(i,topTabList[i]));
+    }
   }
 
   @override
@@ -28,7 +36,7 @@ class MainHomePageState extends State<MainHomePage> with SingleTickerProviderSta
           pinned: true,
           floating: true,
           actions: [
-            IconButton( icon: Icon(Icons.add),onPressed: (){
+            IconButton( icon: Icon(Icons.add_circle),onPressed: (){
               print("点击了添加");
             },)
           ],
@@ -68,7 +76,7 @@ class MainHomePageState extends State<MainHomePage> with SingleTickerProviderSta
         },
         body: TabBarView(
           controller: tabController,
-          children: topTabList.map((e) => Center(child: Text("$e"),)).toList(),
+          children: bodyPageList,
         ),
       ),
     );

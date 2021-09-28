@@ -7,10 +7,10 @@ import 'base/BasePage.dart';
 import 'guide_page.dart';
 import 'home_page.dart';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+// import 'dart:convert';
+// import 'dart:io';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -119,7 +119,7 @@ class IndexPageState extends BasePage<IndexPage> {
         child: InkWell(
           onTap: (){
             // http test
-            httpFunction();
+            // httpFunction();
             timerUtil!.cancel();
             pushPage(HomePage());
           },
@@ -150,15 +150,15 @@ class IndexPageState extends BasePage<IndexPage> {
     }
   }
 
-  void httpFunction() async {
-      final response = await http.get(
-        Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
-        // Send authorization headers to the backend.
-        headers: {
-          HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
-        },
-      );
-      final responseJson = jsonDecode(response.body);
-      print("responseJson: $responseJson");
-  }
+  // void httpFunction() async {
+  //     final response = await http.get(
+  //       Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
+  //       // Send authorization headers to the backend.
+  //       headers: {
+  //         HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+  //       },
+  //     );
+  //     final responseJson = jsonDecode(response.body);
+  //     print("responseJson: $responseJson");
+  // }
 }
